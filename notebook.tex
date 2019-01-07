@@ -1,0 +1,787 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{No Show Patient Appointments}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Project: Investigating Appointments With No-Show
+Patients}\label{project-investigating-appointments-with-no-show-patients}
+
+\subsection{Table of Contents}\label{table-of-contents}
+
+Introduction
+
+Data Wrangling
+
+Exploratory Data Analysis
+
+Conclusions
+
+     \#\# Introduction
+
+\begin{quote}
+I will be exploring the No Show Patient Appointments dataset. I
+downloaded the No Show Appointments dataset and saved it as
+'noshow.csv'. Using the Udacity provided Jupyter Notebook template I
+imported all the packages that might be needed. Some questions I look to
+answer through analyzing this dataset include:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\item
+  Does age (younger or older) have any kind of impact or relationship in
+  terms of people showing up for appointments or not?
+\item
+  Does the combination of age and scholarship have some kind of impact
+  or relationship in terms of people showing up for appointments or not?
+\end{enumerate}
+\end{quote}
+
+\subsubsection{Import Packages}\label{import-packages}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{o}{\PYZpc{}} \PY{n}{matplotlib} \PY{n}{inline}
+\end{Verbatim}
+
+
+     \#\# Data Wrangling
+
+\begin{quote}
+My initial attempt to read the CSV file led to the following error:
+``UnicodeDecodeError: 'utf-8' codec can't decode byte 0xed in position
+3: invalid continuation byte''.
+\end{quote}
+
+\begin{quote}
+A quick Google search led to me to this StackOverflow question and the
+answer I needed to solve this issue.
+https://stackoverflow.com/questions/5552555/unicodedecodeerror-invalid-continuation-byte
+\end{quote}
+
+\subsubsection{General Properties}\label{general-properties}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} Load your data and save it to \PYZsq{}appt\PYZsq{} (short for appointments).}
+        \PY{c+c1}{\PYZsh{} The appt dataframe is all the appointments, regardless of whether or not the person showed up or not.}
+        \PY{n}{appt} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{noshow.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{latin\PYZhy{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Print out a few lines; appt.tail() will print out the last 5 lines from the dataset (if desired).}
+        \PY{n}{appt}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} appt.tail()}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:}       PatientId  AppointmentID Gender          ScheduledDay  \textbackslash{}
+        0  2.990000e+13        5642903      F  2016-04-29T18:38:08Z   
+        1  5.590000e+14        5642503      M  2016-04-29T16:08:27Z   
+        2  4.260000e+12        5642549      F  2016-04-29T16:19:04Z   
+        3  8.680000e+11        5642828      F  2016-04-29T17:29:31Z   
+        4  8.840000e+12        5642494      F  2016-04-29T16:07:23Z   
+        
+                 AppointmentDay  Age      Neighbourhood  Scholarship  Hipertension  \textbackslash{}
+        0  2016-04-29T00:00:00Z   62    JARDIM DA PENHA            0             1   
+        1  2016-04-29T00:00:00Z   56    JARDIM DA PENHA            0             0   
+        2  2016-04-29T00:00:00Z   62      MATA DA PRAIA            0             0   
+        3  2016-04-29T00:00:00Z    8  PONTAL DE CAMBURI            0             0   
+        4  2016-04-29T00:00:00Z   56    JARDIM DA PENHA            0             1   
+        
+           Diabetes  Alcoholism  Handcap  SMS\_received No-show  
+        0         0           0        0             0      No  
+        1         0           0        0             0      No  
+        2         0           0        0             0      No  
+        3         0           0        0             0      No  
+        4         1           0        0             0      No  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} Perform operations to inspect data types and look for instances of missing or possibly errant data.}
+        \PY{c+c1}{\PYZsh{} The describe function helps to get an overview from a statistical viewpoint.}
+        \PY{n}{appt}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}           PatientId  AppointmentID            Age    Scholarship  \textbackslash{}
+        count  1.105270e+05   1.105270e+05  110527.000000  110527.000000   
+        mean   1.474961e+14   5.675305e+06      37.088874       0.098266   
+        std    2.560943e+14   7.129575e+04      23.110205       0.297675   
+        min    3.920000e+04   5.030230e+06      -1.000000       0.000000   
+        25\%    4.170000e+12   5.640286e+06      18.000000       0.000000   
+        50\%    3.170000e+13   5.680573e+06      37.000000       0.000000   
+        75\%    9.440000e+13   5.725524e+06      55.000000       0.000000   
+        max    1.000000e+15   5.790484e+06     115.000000       1.000000   
+        
+                Hipertension       Diabetes     Alcoholism        Handcap  \textbackslash{}
+        count  110527.000000  110527.000000  110527.000000  110527.000000   
+        mean        0.197246       0.071865       0.030400       0.022248   
+        std         0.397921       0.258265       0.171686       0.161543   
+        min         0.000000       0.000000       0.000000       0.000000   
+        25\%         0.000000       0.000000       0.000000       0.000000   
+        50\%         0.000000       0.000000       0.000000       0.000000   
+        75\%         0.000000       0.000000       0.000000       0.000000   
+        max         1.000000       1.000000       1.000000       4.000000   
+        
+                SMS\_received  
+        count  110527.000000  
+        mean        0.321026  
+        std         0.466873  
+        min         0.000000  
+        25\%         0.000000  
+        50\%         0.000000  
+        75\%         1.000000  
+        max         1.000000  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} Perform operations to inspect data types and look for instances of missing or possibly errant data.}
+        \PY{c+c1}{\PYZsh{} The info function helps to see the different data types for each columns as well as number of rows.}
+        \PY{n}{appt}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 110527 entries, 0 to 110526
+Data columns (total 14 columns):
+PatientId         110527 non-null float64
+AppointmentID     110527 non-null int64
+Gender            110527 non-null object
+ScheduledDay      110527 non-null object
+AppointmentDay    110527 non-null object
+Age               110527 non-null int64
+Neighbourhood     110527 non-null object
+Scholarship       110527 non-null int64
+Hipertension      110527 non-null int64
+Diabetes          110527 non-null int64
+Alcoholism        110527 non-null int64
+Handcap           110527 non-null int64
+SMS\_received      110527 non-null int64
+No-show           110527 non-null object
+dtypes: float64(1), int64(8), object(5)
+memory usage: 11.8+ MB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} The following command will create a sub\PYZhy{}group of the appt dataframe, where the column \PYZsq{}No\PYZhy{}show\PYZsq{} value is \PYZsq{}Yes\PYZsq{}.}
+        \PY{c+c1}{\PYZsh{} Meaning, this sub\PYZhy{}group of the appt dataframe is all the missed or \PYZsq{}no\PYZhy{}show\PYZsq{} appointments.}
+        \PY{c+c1}{\PYZsh{} This could be good later for exploring differences between those who showed up for appointments or didn\PYZsq{}t.}
+        \PY{n}{appt\PYZus{}yes} \PY{o}{=} \PY{n}{appt}\PY{p}{[}\PY{n}{appt}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No\PYZhy{}show}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Yes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} Perform operations to inspect data types and look for instances of missing or possibly errant data.}
+        \PY{c+c1}{\PYZsh{} Again, using the describe function allows us to see the statistics for this \PYZsq{}no\PYZhy{}show\PYZsq{} sub\PYZhy{}group from \PYZsq{}appt\PYZsq{}.}
+        \PY{n}{appt\PYZus{}yes}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}           PatientId  AppointmentID           Age   Scholarship  Hipertension  \textbackslash{}
+        count  2.231900e+04   2.231900e+04  22319.000000  22319.000000  22319.000000   
+        mean   1.467530e+14   5.652259e+06     34.317667      0.115507      0.169004   
+        std    2.549922e+14   7.429686e+04     21.965941      0.319640      0.374764   
+        min    5.628261e+06   5.122866e+06      0.000000      0.000000      0.000000   
+        25\%    4.180000e+12   5.614192e+06     16.000000      0.000000      0.000000   
+        50\%    3.160000e+13   5.657916e+06     33.000000      0.000000      0.000000   
+        75\%    9.450000e+13   5.703175e+06     51.000000      0.000000      0.000000   
+        max    1.000000e+15   5.789986e+06    115.000000      1.000000      1.000000   
+        
+                   Diabetes    Alcoholism       Handcap  SMS\_received  
+        count  22319.000000  22319.000000  22319.000000  22319.000000  
+        mean       0.064071      0.030333      0.020297      0.438371  
+        std        0.244885      0.171505      0.156670      0.496198  
+        min        0.000000      0.000000      0.000000      0.000000  
+        25\%        0.000000      0.000000      0.000000      0.000000  
+        50\%        0.000000      0.000000      0.000000      0.000000  
+        75\%        0.000000      0.000000      0.000000      1.000000  
+        max        1.000000      1.000000      4.000000      1.000000  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} Perform operations to inspect data types and look for instances of missing or possibly errant data.}
+        \PY{c+c1}{\PYZsh{} Again, using info we can confirm that there are still a uniform number of rows for each column name.}
+        \PY{n}{appt\PYZus{}yes}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+Int64Index: 22319 entries, 6 to 110516
+Data columns (total 14 columns):
+PatientId         22319 non-null float64
+AppointmentID     22319 non-null int64
+Gender            22319 non-null object
+ScheduledDay      22319 non-null object
+AppointmentDay    22319 non-null object
+Age               22319 non-null int64
+Neighbourhood     22319 non-null object
+Scholarship       22319 non-null int64
+Hipertension      22319 non-null int64
+Diabetes          22319 non-null int64
+Alcoholism        22319 non-null int64
+Handcap           22319 non-null int64
+SMS\_received      22319 non-null int64
+No-show           22319 non-null object
+dtypes: float64(1), int64(8), object(5)
+memory usage: 2.6+ MB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} The following command will create a sub\PYZhy{}group of the appt dataframe, where the column \PYZsq{}No\PYZhy{}show\PYZsq{} value is \PYZsq{}No\PYZsq{}.}
+        \PY{c+c1}{\PYZsh{} Meaning, this sub\PYZhy{}group of the appt dataframe is all the arrived or people who did show up for appointments.}
+        \PY{c+c1}{\PYZsh{} This could be good later for exploring differences between those who showed up for appointments or didn\PYZsq{}t.}
+        \PY{n}{appt\PYZus{}no} \PY{o}{=} \PY{n}{appt}\PY{p}{[}\PY{n}{appt}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No\PYZhy{}show}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} Perform operations to inspect data types and look for instances of missing or possibly errant data.}
+        \PY{c+c1}{\PYZsh{} Again, using the describe function allows us to see the statistics for this \PYZsq{}did\PYZhy{}show\PYZsq{} sub\PYZhy{}group from \PYZsq{}appt\PYZsq{}.}
+        \PY{n}{appt\PYZus{}no}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:}           PatientId  AppointmentID           Age   Scholarship  Hipertension  \textbackslash{}
+        count  8.820800e+04   8.820800e+04  88208.000000  88208.000000  88208.000000   
+        mean   1.476841e+14   5.681137e+06     37.790064      0.093903      0.204392   
+        std    2.563736e+14   6.931225e+04     23.338878      0.291695      0.403259   
+        min    3.920000e+04   5.030230e+06     -1.000000      0.000000      0.000000   
+        25\%    4.170000e+12   5.646218e+06     18.000000      0.000000      0.000000   
+        50\%    3.180000e+13   5.685684e+06     38.000000      0.000000      0.000000   
+        75\%    9.430000e+13   5.731078e+06     56.000000      0.000000      0.000000   
+        max    1.000000e+15   5.790484e+06    115.000000      1.000000      1.000000   
+        
+                   Diabetes    Alcoholism       Handcap  SMS\_received  
+        count  88208.000000  88208.000000  88208.000000  88208.000000  
+        mean       0.073837      0.030417      0.022742      0.291334  
+        std        0.261507      0.171732      0.162750      0.454380  
+        min        0.000000      0.000000      0.000000      0.000000  
+        25\%        0.000000      0.000000      0.000000      0.000000  
+        50\%        0.000000      0.000000      0.000000      0.000000  
+        75\%        0.000000      0.000000      0.000000      1.000000  
+        max        1.000000      1.000000      4.000000      1.000000  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} Perform operations to inspect data types and look for instances of missing or possibly errant data.}
+        \PY{c+c1}{\PYZsh{} Again, using info we can confirm that there are still a uniform number of rows for each column name.}
+        \PY{n}{appt\PYZus{}no}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+Int64Index: 88208 entries, 0 to 110526
+Data columns (total 14 columns):
+PatientId         88208 non-null float64
+AppointmentID     88208 non-null int64
+Gender            88208 non-null object
+ScheduledDay      88208 non-null object
+AppointmentDay    88208 non-null object
+Age               88208 non-null int64
+Neighbourhood     88208 non-null object
+Scholarship       88208 non-null int64
+Hipertension      88208 non-null int64
+Diabetes          88208 non-null int64
+Alcoholism        88208 non-null int64
+Handcap           88208 non-null int64
+SMS\_received      88208 non-null int64
+No-show           88208 non-null object
+dtypes: float64(1), int64(8), object(5)
+memory usage: 10.1+ MB
+
+    \end{Verbatim}
+
+    \subsubsection{Data Cleaning}\label{data-cleaning}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} Taking a closer look at some aspects of the data from the above dataframes.}
+        \PY{c+c1}{\PYZsh{} The following few cells of code in this section are looking into the maximum listed age of 115}
+        \PY{c+c1}{\PYZsh{} First create a sub\PYZhy{}group of \PYZsq{}appt\PYZsq{} dataframe where \PYZsq{}Age\PYZsq{} column values are equal to \PYZsq{}115\PYZsq{}}
+        \PY{n}{max\PYZus{}age} \PY{o}{=} \PY{n}{appt}\PY{p}{[}\PY{n}{appt}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{115}\PY{p}{]}
+        \PY{n}{max\PYZus{}age}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:}           PatientId  AppointmentID Gender          ScheduledDay  \textbackslash{}
+        63912  3.200000e+13        5700278      F  2016-05-16T09:17:44Z   
+        63915  3.200000e+13        5700279      F  2016-05-16T09:17:44Z   
+        68127  3.200000e+13        5562812      F  2016-04-08T14:29:17Z   
+        76284  3.200000e+13        5744037      F  2016-05-30T09:44:51Z   
+        97666  7.480000e+14        5717451      F  2016-05-19T07:57:56Z   
+        
+                     AppointmentDay  Age Neighbourhood  Scholarship  Hipertension  \textbackslash{}
+        63912  2016-05-19T00:00:00Z  115    ANDORINHAS            0             0   
+        63915  2016-05-19T00:00:00Z  115    ANDORINHAS            0             0   
+        68127  2016-05-16T00:00:00Z  115    ANDORINHAS            0             0   
+        76284  2016-05-30T00:00:00Z  115    ANDORINHAS            0             0   
+        97666  2016-06-03T00:00:00Z  115    SíO JOSí            0             1   
+        
+               Diabetes  Alcoholism  Handcap  SMS\_received No-show  
+        63912         0           0        1             0     Yes  
+        63915         0           0        1             0     Yes  
+        68127         0           0        1             0     Yes  
+        76284         0           0        1             0      No  
+        97666         0           0        0             1      No  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} The following counts the number of unique values in a column (PatientId); we see 2 people are 115 years old.}
+         \PY{c+c1}{\PYZsh{} Given the wide range of ages in the dataset it isn\PYZsq{}t possible to tell if these are errors or correct age values.}
+         \PY{n}{max\PYZus{}age}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PatientId}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{nunique}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} 2
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} Before moving onto the research questions we should clean up the age error of \PYZhy{}1 as is show in \PYZsq{}appt\PYZus{}no\PYZsq{}.}
+         \PY{c+c1}{\PYZsh{} Clearly people can\PYZsq{}t have an age of \PYZhy{}1 as that would be pre\PYZhy{}birth and at birth you are essentially 0 years old.}
+         \PY{c+c1}{\PYZsh{} We wil go ahead and select this patient and change their age to 0 and assume this is a new born.}
+         \PY{c+c1}{\PYZsh{} This will use basically the same code as exploring the 115 year old people above.}
+         \PY{n}{min\PYZus{}age} \PY{o}{=} \PY{n}{appt}\PY{p}{[}\PY{n}{appt}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} This line of code replaces, in the Age column, the value(s) that are \PYZhy{}1 and changes them to 0 (inplace).}
+         \PY{n}{appt}\PY{o}{.}\PY{n}{Age}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} To show that it worked and the row wasn\PYZsq{}t deleted, we will re\PYZhy{}run some basic \PYZsq{}tests\PYZsq{}.}
+         \PY{c+c1}{\PYZsh{} We can compare the results to the previous \PYZsq{}tests\PYZsq{} on the \PYZsq{}appt\PYZsq{} or \PYZsq{}appt\PYZus{}no\PYZsq{} dataframe from above.}
+         \PY{c+c1}{\PYZsh{} We can see that mininum Age is now only 0 and no longer \PYZhy{}1. This will slightly alter the other statistics.}
+         \PY{n}{appt}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:}           PatientId  AppointmentID            Age    Scholarship  \textbackslash{}
+         count  1.105270e+05   1.105270e+05  110527.000000  110527.000000   
+         mean   1.474961e+14   5.675305e+06      37.088883       0.098266   
+         std    2.560943e+14   7.129575e+04      23.110190       0.297675   
+         min    3.920000e+04   5.030230e+06       0.000000       0.000000   
+         25\%    4.170000e+12   5.640286e+06      18.000000       0.000000   
+         50\%    3.170000e+13   5.680573e+06      37.000000       0.000000   
+         75\%    9.440000e+13   5.725524e+06      55.000000       0.000000   
+         max    1.000000e+15   5.790484e+06     115.000000       1.000000   
+         
+                 Hipertension       Diabetes     Alcoholism        Handcap  \textbackslash{}
+         count  110527.000000  110527.000000  110527.000000  110527.000000   
+         mean        0.197246       0.071865       0.030400       0.022248   
+         std         0.397921       0.258265       0.171686       0.161543   
+         min         0.000000       0.000000       0.000000       0.000000   
+         25\%         0.000000       0.000000       0.000000       0.000000   
+         50\%         0.000000       0.000000       0.000000       0.000000   
+         75\%         0.000000       0.000000       0.000000       0.000000   
+         max         1.000000       1.000000       1.000000       4.000000   
+         
+                 SMS\_received  
+         count  110527.000000  
+         mean        0.321026  
+         std         0.466873  
+         min         0.000000  
+         25\%         0.000000  
+         50\%         0.000000  
+         75\%         1.000000  
+         max         1.000000  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} Anoter \PYZsq{}test\PYZsq{} for quick comparison purposes to make sure the Age \PYZhy{}1 replacement to 0 worked correctly.}
+         \PY{c+c1}{\PYZsh{} There\PYZsq{}s still 110,527 rows which shows that the row with Age \PYZhy{}1 wasn\PYZsq{}t removed but the \PYZhy{}1 changed to 0.}
+         \PY{n}{appt}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 110527 entries, 0 to 110526
+Data columns (total 14 columns):
+PatientId         110527 non-null float64
+AppointmentID     110527 non-null int64
+Gender            110527 non-null object
+ScheduledDay      110527 non-null object
+AppointmentDay    110527 non-null object
+Age               110527 non-null int64
+Neighbourhood     110527 non-null object
+Scholarship       110527 non-null int64
+Hipertension      110527 non-null int64
+Diabetes          110527 non-null int64
+Alcoholism        110527 non-null int64
+Handcap           110527 non-null int64
+SMS\_received      110527 non-null int64
+No-show           110527 non-null object
+dtypes: float64(1), int64(8), object(5)
+memory usage: 11.8+ MB
+
+    \end{Verbatim}
+
+     \#\# Exploratory Data Analysis
+
+\subsubsection{Research Question 1 (single variable
+exploration):}\label{research-question-1-single-variable-exploration}
+
+\subsubsection{Does age (younger or older) have any kind of impact or
+relationship in terms of people showing up for appointments or
+not?}\label{does-age-younger-or-older-have-any-kind-of-impact-or-relationship-in-terms-of-people-showing-up-for-appointments-or-not}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} In order to explore the above question we save a copy of the \PYZsq{}appt\PYZsq{} dataframe to the \PYZsq{}new\PYZus{}appt\PYZsq{} name.}
+         \PY{n}{new\PYZus{}appt} \PY{o}{=} \PY{n}{appt}
+         
+         \PY{c+c1}{\PYZsh{} Now, using the \PYZsq{}new\PYZus{}appt\PYZsq{} dataframe, we create a boxplot and use Age as the x\PYZhy{}axis and \PYZdq{}No\PYZhy{}show\PYZdq{} for the y\PYZhy{}axis.}
+         \PY{c+c1}{\PYZsh{} palette=[\PYZdq{}g\PYZdq{}, \PYZdq{}r\PYZdq{}] sets the colors for the 2 categories, Yes and No. Yes (missed appointment); No is opposite.}
+         \PY{n}{appt\PYZus{}yes\PYZus{}viz} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Age}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{No\PYZhy{}show}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{palette}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{g}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{r}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{new\PYZus{}appt}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Research Question 2 (multi-variable
+exploration):}\label{research-question-2-multi-variable-exploration}
+
+\subsubsection{Does the combination of age and scholarship have some
+kind of impact or relationship in terms of people showing up for
+appointments or
+not?}\label{does-the-combination-of-age-and-scholarship-have-some-kind-of-impact-or-relationship-in-terms-of-people-showing-up-for-appointments-or-not}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} Draw a barplot to show \PYZdq{}No\PYZhy{}show\PYZdq{} status (x\PYZhy{}axis) and \PYZdq{}Age\PYZdq{} (y\PYZhy{}axis) and \PYZdq{}Scholarship\PYZdq{} as the hue.}
+         \PY{c+c1}{\PYZsh{} For the \PYZdq{}Scholarship\PYZdq{} hue, the blue (0) means those people didn\PYZsq{}t have healthcare scholarships but means yes.}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{catplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{No\PYZhy{}show}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Age}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Scholarship}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{new\PYZus{}appt}\PY{p}{,} \PY{n}{height}\PY{o}{=}\PY{l+m+mi}{6}\PY{p}{,} \PY{n}{kind}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bar}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{palette}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{muted}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} <seaborn.axisgrid.FacetGrid at 0x1a169c1470>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+     \#\# Conclusions \textgreater{} Question 1 results and conclusions
+based on the boxplot: \textgreater{} \textgreater{} Right away we can
+see from the boxplot that the people who did not show up for their
+appointments were younger. \textgreater{} This doesn't account for the
+fact that the number of people in "Yes" is about four times smaller than
+"No". \textgreater{} I imagine that if each group had closer or same
+numbers that the "Yes" and "No" visuals would be more similar.
+\textgreater{} Further analysis could be done to equalize the "Yes" and
+"No" group numbers and then re-make the boxplot. \textgreater{}
+\textgreater{} Question 2 results and conclusions based on the barplot:
+\textgreater{} \textgreater{} From the barplot we can see that in the
+'didn't show up for an appointment' group (Yes) that the people
+\textgreater{} who don't have scholarships (0) were closer in age to
+those in the same group but did have scholarships (1). \textgreater{} In
+the 'did show up for an appointment' group (No), the age difference is
+noticeably larger, so much larger \textgreater{} in fact that the people
+who do have scholarships in the "No" group were almost as young as the
+people with \textgreater{} scholarships in the "Yes" group. This is
+interesting because (as previously mentioned) the "No" group has
+\textgreater{} nearly four times more people than the "Yes" group.
+\textgreater{} \textgreater{} Overall, after exploring and cleaning this
+dataset - I don't believe there is definitive proof that either Age
+\textgreater{} nor Scholarship status has an impact on whether or not a
+person shows up for their appointment or not. This is \textgreater{}
+partly due to the fact that the number of people who did show up for
+appointments was nearly four times more \textgreater{} than the number
+of people who didn't show up for appointments. Further work could be
+done to balance out the \textgreater{} numbers from the "Yes" and "No"
+groups to see if the statistical data and visuals in this project become
+more \textgreater{} closely aligned; it would be an anomaly for the data
+to be in such a way that the statistics and visuals for \textgreater{}
+each group were to be the (exact) same.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
