@@ -1,4 +1,4 @@
-# Udacity-Data-Analyst-Investigate-Dataset-Project-2
+# Udacity Data Analyst Investigate Dataset Project 2
 This is my repository for the project and files for the second project in the Udacity Data Analyst Nanodegree program.
 
 # Description
